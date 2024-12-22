@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Email/Message Composer</title>
+</head>
+<body>
+    <h1>AI Email/Message Composer</h1>
+    <form id="message-form">
+        <label for="recipient">Recipient:</label><br>
+        <input type="text" id="recipient" name="recipient" required><br><br>
+
+        <label for="context">Context/Purpose:</label><br>
+        <input type="text" id="context" name="context" required><br><br>
+
+        <label for="tone">Tone:</label><br>
+        <select id="tone" name="tone" required>
+            <option value="formal">Formal</option>
+            <option value="informal">Informal</option>
+            <option value="friendly">Friendly</option>
+            <option value="urgent">Urgent</option>
+        </select><br><br>
+
+        <label for="details">Key Details (Optional):</label><br>
+        <textarea id="details" name="details"></textarea><br><br>
+
+        <button type="submit">Generate Message</button>
+    </form>
+
+    <div id="message-display"></div>
+
+    <script>
+        const form = document.getElementById('message-form');
+        const messageDisplay = document.getElementById('message-display');
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const formData = new URLSearchParams(new FormData(form));
+
+            const response = await fetch('/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: formData
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                messageDisplay.textContent = data.message;
+            } else {
+                messageDisplay.textContent = `Error: ${data.error}`;
+            }
+        });
+    </script>
+</body>
+</html>
