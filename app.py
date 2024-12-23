@@ -6,7 +6,7 @@ import traceback  # Import traceback for detailed error info
 
 load_dotenv()
 
-app = Flask(__name__)
+app = Flask(__name__,static_folder='static', template_folder='templates') #adding static folder to use CSS,images,etc
 
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 if not GROQ_API_KEY:
