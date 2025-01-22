@@ -1,3 +1,4 @@
+// page.tsx
 'use client'; // Important for interactive components
 
 import { useState } from 'react';
@@ -41,34 +42,35 @@ export default function Home() {
     };
 
     return (
-        <div style={{ maxWidth: '600px', margin: '20px auto', padding: '20px', border: '1px solid #ccc', borderRadius: '5px' }}>
-            <h1>AI Email/Message Composer</h1>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="recipient">Recipient:</label><br />
-                <input type="text" id="recipient" value={recipient} onChange={(e) => setRecipient(e.target.value)} required style={{ width: '100%', padding: '8px', margin: '5px 0', boxSizing: 'border-box' }} /><br /><br />
+        <div className="container">
+            <h1 className="title">MessageCraft </h1> 
+            <h1 className="title"> An AI Email / Message Composer</h1>
+            {error && <p className="error-message">{error}</p>}
+            <form onSubmit={handleSubmit} className="form">
+                <label htmlFor="recipient" className="label">Recipient:</label>
+                <input type="text" id="recipient" value={recipient} onChange={(e) => setRecipient(e.target.value)} required className="input" />
 
-                <label htmlFor="context">Context/Purpose:</label><br />
-                <input type="text" id="context" value={context} onChange={(e) => setContext(e.target.value)} required style={{ width: '100%', padding: '8px', margin: '5px 0', boxSizing: 'border-box' }} /><br /><br />
+                <label htmlFor="context" className="label">Context/Purpose:</label>
+                <input type="text" id="context" value={context} onChange={(e) => setContext(e.target.value)} required className="input" />
 
-                <label htmlFor="tone">Tone:</label><br />
-                <select id="tone" value={tone} onChange={(e) => setTone(e.target.value)} required style={{ width: '100%', padding: '8px', margin: '5px 0', boxSizing: 'border-box' }}>
+                <label htmlFor="tone" className="label">Tone:</label>
+                <select id="tone" value={tone} onChange={(e) => setTone(e.target.value)} required className="input">
                     <option value="formal">Formal</option>
                     <option value="informal">Informal</option>
                     <option value="friendly">Friendly</option>
                     <option value="urgent">Urgent</option>
-                </select><br /><br />
+                </select>
 
-                <label htmlFor="details">Key Details (Optional):</label><br />
-                <textarea id="details" value={details} onChange={(e) => setDetails(e.target.value)} style={{ width: '100%', padding: '8px', margin: '5px 0', boxSizing: 'border-box', height: '100px' }}></textarea><br /><br />
+                <label htmlFor="details" className="label">Key Details (Optional):</label>
+                <textarea id="details" value={details} onChange={(e) => setDetails(e.target.value)} className="textarea"></textarea>
 
-                <button type="submit" disabled={isLoading} style={{ backgroundColor: '#4CAF50', color: 'white', padding: '10px 15px', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>
+                <button type="submit" disabled={isLoading} className="button">
                     {isLoading ? "Generating..." : "Generate Message"}
                 </button>
             </form>
 
-            {message && <div style={{ marginTop: '20px', padding: '10px', border: '1px solid #ccc', borderRadius: '5px' }}>
-                <h2>Generated Message:</h2>
+            {message && <div className="message-box">
+                <h2 className="message-title">Generated Message:</h2>
                 <p>{message}</p>
             </div>}
         </div>
