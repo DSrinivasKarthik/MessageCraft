@@ -2,6 +2,7 @@
 'use client'; // Important for interactive components
 
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Home() {
     const [recipient, setRecipient] = useState('');
@@ -34,7 +35,7 @@ export default function Home() {
             } else {
                 setError(data.error || 'An error occurred.');
             }
-        } catch (err: any) { // Type the error
+        } catch (err: any) {
             setError(err.message || 'A network error occurred.');
         } finally {
             setIsLoading(false);
@@ -42,37 +43,145 @@ export default function Home() {
     };
 
     return (
-        <div className="container">
-            <h1 className="title">MessageCraft </h1> 
-            <h1 className="title"> An AI Email / Message Composer</h1>
-            {error && <p className="error-message">{error}</p>}
-            <form onSubmit={handleSubmit} className="form">
-                <label htmlFor="recipient" className="label">Recipient:</label>
-                <input type="text" id="recipient" value={recipient} onChange={(e) => setRecipient(e.target.value)} required className="input" />
+        <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 py-12 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-3xl mx-auto">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="text-center mb-12"
+                >
+                    <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">
+                        MessageCraft
+                    </h1>
+                    <p className="text-lg text-gray-600 dark:text-gray-300">
+                        AI-Powered Message Composition
+                    </p>
+                </motion.div>
 
-                <label htmlFor="context" className="label">Context/Purpose:</label>
-                <input type="text" id="context" value={context} onChange={(e) => setContext(e.target.value)} required className="input" />
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                    className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8"
+                >
+                    <AnimatePresence>
+                        {error && (
+                            <motion.div
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                className="mb-6 p-4 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-lg"
+                            >
+                                <p className="text-red-600 dark:text-red-400">{error}</p>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
 
-                <label htmlFor="tone" className="label">Tone:</label>
-                <select id="tone" value={tone} onChange={(e) => setTone(e.target.value)} required className="input">
-                    <option value="formal">Formal</option>
-                    <option value="informal">Informal</option>
-                    <option value="friendly">Friendly</option>
-                    <option value="urgent">Urgent</option>
-                </select>
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label htmlFor="recipient" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    Recipient
+                                </label>
+                                <input
+                                    type="text"
+                                    id="recipient"
+                                    value={recipient}
+                                    onChange={(e) => setRecipient(e.target.value)}
+                                    required
+                                    className="input-field"
+                                    placeholder="Who is this message for?"
+                                />
+                            </div>
 
-                <label htmlFor="details" className="label">Key Details (Optional):</label>
-                <textarea id="details" value={details} onChange={(e) => setDetails(e.target.value)} className="textarea"></textarea>
+                            <div>
+                                <label htmlFor="tone" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    Tone
+                                </label>
+                                <select
+                                    id="tone"
+                                    value={tone}
+                                    onChange={(e) => setTone(e.target.value)}
+                                    required
+                                    className="input-field"
+                                >
+                                    <option value="formal">Formal</option>
+                                    <option value="informal">Informal</option>
+                                    <option value="friendly">Friendly</option>
+                                    <option value="urgent">Urgent</option>
+                                </select>
+                            </div>
+                        </div>
 
-                <button type="submit" disabled={isLoading} className="button">
-                    {isLoading ? "Generating..." : "Generate Message"}
-                </button>
-            </form>
+                        <div>
+                            <label htmlFor="context" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                Context/Purpose
+                            </label>
+                            <input
+                                type="text"
+                                id="context"
+                                value={context}
+                                onChange={(e) => setContext(e.target.value)}
+                                required
+                                className="input-field"
+                                placeholder="What is the purpose of this message?"
+                            />
+                        </div>
 
-            {message && <div className="message-box">
-                <h2 className="message-title">Generated Message:</h2>
-                <p>{message}</p>
-            </div>}
+                        <div>
+                            <label htmlFor="details" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                Key Details
+                            </label>
+                            <textarea
+                                id="details"
+                                value={details}
+                                onChange={(e) => setDetails(e.target.value)}
+                                className="input-field h-32"
+                                placeholder="Add any specific details or requirements..."
+                            />
+                        </div>
+
+                        <motion.button
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                            type="submit"
+                            disabled={isLoading}
+                            className="w-full submit-button"
+                        >
+                            {isLoading ? (
+                                <span className="flex items-center justify-center">
+                                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
+                                    Generating...
+                                </span>
+                            ) : (
+                                "Generate Message"
+                            )}
+                        </motion.button>
+                    </form>
+
+                    <AnimatePresence>
+                        {message && (
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: 20 }}
+                                className="mt-8 p-6 bg-gray-50 dark:bg-gray-700 rounded-xl"
+                            >
+                                <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                                    Generated Message
+                                </h2>
+                                <div className="prose dark:prose-invert max-w-none">
+                                    <p className="whitespace-pre-wrap">{message}</p>
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </motion.div>
+            </div>
         </div>
     );
 }

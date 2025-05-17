@@ -9,17 +9,20 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "framer-motion": "^11.0.3",
     "groq-sdk": "^0.9.1",
     "messagecraft": "file:",
     "next": "15.1.2",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "@tailwindcss/typography": "^0.5.10"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "autoprefixer": "^10.4.17",
     "eslint": "^9",
     "eslint-config-next": "15.1.2",
     "postcss": "^8",
