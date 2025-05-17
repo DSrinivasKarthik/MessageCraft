@@ -2,18 +2,17 @@
 
 A web application that uses AI to generate emails and messages based on user-provided context, tone, and details. Built with Next.js and integrated with the Groq API for powerful language generation.
 
-![Screenshot of MessageCraft](screenshot.png) ## Table of Contents
+![Screenshot of MessageCraft](screenshot.png)
+
+## Table of Contents
 
 *   [Features](#features)
 *   [Technologies Used](#technologies-used)
 *   [Getting Started](#getting-started)
-    *   [Prerequisites](#prerequisites)
-    *   [Installation](#installation)
-    *   [Environment Variables](#environment-variables)
 *   [Usage](#usage)
 *   [Development](#development)
+*   [Project Status & Checklist](#project-status--checklist)
 *   [Deployment](#deployment)
-
 
 ## Features
 
@@ -30,6 +29,7 @@ A web application that uses AI to generate emails and messages based on user-pro
 *   [React](https://reactjs.org/): JavaScript library for building user interfaces.
 *   [Groq API](https://console.groq.com/docs/): Powerful API for language generation.
 *   [TypeScript](https://www.typescriptlang.org/): Superset of JavaScript that adds static typing.
+*   [Tailwind CSS](https://tailwindcss.com/): Utility-first CSS framework.
 *   [Netlify](https://www.netlify.com/): Platform for deploying and hosting web applications.
 *   [Git](https://git-scm.com/): Version control system.
 
@@ -47,19 +47,16 @@ These instructions will get you a copy of the project up and running on your loc
 ### Installation
 
 1.  Clone the repository:
-
     ```bash
-    git clone [invalid URL removed]
+    git clone [repository-url]
     ```
 
 2.  Navigate to the project directory:
-
     ```bash
     cd messagecraft
     ```
 
 3.  Install dependencies:
-
     ```bash
     npm install  # or yarn install
     ```
@@ -77,7 +74,6 @@ GROQ_API_KEY=your_actual_groq_api_key
 ## Usage
 
 1.  Start the development server:
-
     ```bash
     npm run dev  # or yarn dev
     ```
@@ -90,9 +86,74 @@ GROQ_API_KEY=your_actual_groq_api_key
 *   **Committing:** Use clear and concise commit messages following the Conventional Commits standard.
 *   **Pull Requests:** Create pull requests for code reviews before merging changes into the `main` branch.
 
+## Project Status & Checklist
+
+### Current Status
+- ✅ Basic Next.js setup with TypeScript
+- ✅ Groq API integration
+- ✅ Basic UI implementation
+- ✅ Environment configuration
+- ✅ Basic error handling
+
+### Development Checklist
+
+#### Core Features
+- [ ] Implement message history storage
+- [ ] Add message templates feature
+- [ ] Implement message categories
+- [ ] Add support for multiple languages
+- [ ] Implement message length control
+- [ ] Add message preview functionality
+
+#### UI/UX Improvements
+- [ ] Add dark mode support
+- [ ] Implement responsive design for mobile devices
+- [ ] Add loading animations
+- [ ] Improve error message display
+- [ ] Add success notifications
+- [ ] Implement keyboard shortcuts
+
+#### Technical Improvements
+- [ ] Add unit tests
+- [ ] Add integration tests
+- [ ] Implement proper logging
+- [ ] Add performance monitoring
+- [ ] Implement proper TypeScript types
+- [ ] Add API rate limiting
+- [ ] Implement proper caching strategy
+
+#### Documentation
+- [ ] Add API documentation
+- [ ] Create user guide
+- [ ] Add contribution guidelines
+- [ ] Create architecture documentation
+- [ ] Add deployment documentation
+
+#### Security
+- [ ] Implement proper input validation
+- [ ] Add rate limiting
+- [ ] Implement proper error handling
+- [ ] Add security headers
+- [ ] Implement proper API key management
+
+#### Performance
+- [ ] Optimize bundle size
+- [ ] Implement proper code splitting
+- [ ] Add performance monitoring
+- [ ] Optimize API calls
+- [ ] Implement proper caching
+
 ## Deployment
 
 The frontend of this application is designed to be deployed on Netlify.
 
 1.  Create a Netlify account and link it to your GitHub repository.
 2.  Netlify will automatically deploy your site on pushes to the `main` branch.
+
+## Contributing
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
