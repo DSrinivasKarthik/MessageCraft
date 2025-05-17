@@ -1,6 +1,6 @@
 # MessageCraft
 
-A web application that uses AI to generate emails and messages based on user-provided context, tone, and details. Built with Next.js and integrated with the Groq API for powerful language generation.
+A modern web application that uses AI to generate emails and messages based on user-provided context, tone, and details. Built with Next.js and integrated with the Groq API for powerful language generation.
 
 ![Screenshot of MessageCraft](screenshot.png)
 
@@ -19,9 +19,12 @@ A web application that uses AI to generate emails and messages based on user-pro
 *   **AI-Powered Message Generation:** Generates emails and messages using the Groq API.
 *   **Customizable Tone:** Users can select the desired tone (formal, informal, friendly, urgent).
 *   **Context and Details Input:** Allows users to provide context and key details to guide the message generation.
-*   **User-Friendly Interface:** Clean and intuitive user interface built with Next.js.
-*   **Error Handling:** Robust error handling for API requests and user input.
-*   **Loading State:** Provides visual feedback during API calls.
+*   **Modern User Interface:** Clean and intuitive user interface with smooth animations and transitions.
+*   **Dark Mode Support:** Automatic dark mode detection with manual toggle option.
+*   **Responsive Design:** Fully responsive layout that works on all devices.
+*   **Error Handling:** Robust error handling with user-friendly error messages.
+*   **Loading States:** Beautiful loading animations and transitions.
+*   **Accessibility:** Built with accessibility in mind, following WCAG guidelines.
 
 ## Technologies Used
 
@@ -30,6 +33,7 @@ A web application that uses AI to generate emails and messages based on user-pro
 *   [Groq API](https://console.groq.com/docs/): Powerful API for language generation.
 *   [TypeScript](https://www.typescriptlang.org/): Superset of JavaScript that adds static typing.
 *   [Tailwind CSS](https://tailwindcss.com/): Utility-first CSS framework.
+*   [Framer Motion](https://www.framer.com/motion/): Production-ready motion library for React.
 *   [Netlify](https://www.netlify.com/): Platform for deploying and hosting web applications.
 *   [Git](https://git-scm.com/): Version control system.
 
@@ -91,9 +95,12 @@ GROQ_API_KEY=your_actual_groq_api_key
 ### Current Status
 - ✅ Basic Next.js setup with TypeScript
 - ✅ Groq API integration
-- ✅ Basic UI implementation
+- ✅ Modern UI implementation with animations
+- ✅ Dark mode support
+- ✅ Responsive design
+- ✅ Loading states and transitions
+- ✅ Error handling
 - ✅ Environment configuration
-- ✅ Basic error handling
 
 ### Development Checklist
 
@@ -106,11 +113,11 @@ GROQ_API_KEY=your_actual_groq_api_key
 - [ ] Add message preview functionality
 
 #### UI/UX Improvements
-- [ ] Add dark mode support
-- [ ] Implement responsive design for mobile devices
-- [ ] Add loading animations
-- [ ] Improve error message display
-- [ ] Add success notifications
+- [x] Add dark mode support
+- [x] Implement responsive design for mobile devices
+- [x] Add loading animations
+- [x] Improve error message display
+- [x] Add success notifications
 - [ ] Implement keyboard shortcuts
 
 #### Technical Improvements
@@ -118,21 +125,21 @@ GROQ_API_KEY=your_actual_groq_api_key
 - [ ] Add integration tests
 - [ ] Implement proper logging
 - [ ] Add performance monitoring
-- [ ] Implement proper TypeScript types
+- [x] Implement proper TypeScript types
 - [ ] Add API rate limiting
 - [ ] Implement proper caching strategy
 
 #### Documentation
-- [ ] Add API documentation
+- [x] Add API documentation
 - [ ] Create user guide
-- [ ] Add contribution guidelines
+- [x] Add contribution guidelines
 - [ ] Create architecture documentation
-- [ ] Add deployment documentation
+- [x] Add deployment documentation
 
 #### Security
 - [ ] Implement proper input validation
 - [ ] Add rate limiting
-- [ ] Implement proper error handling
+- [x] Implement proper error handling
 - [ ] Add security headers
 - [ ] Implement proper API key management
 

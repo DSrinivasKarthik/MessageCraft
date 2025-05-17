@@ -3,6 +3,8 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import ThemeToggle from './components/ThemeToggle';
+import LoadingSpinner from './components/LoadingSpinner';
 
 export default function Home() {
     const [recipient, setRecipient] = useState('');
@@ -43,7 +45,8 @@ export default function Home() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 py-12 px-4 sm:px-6 lg:px-8 transition-colors duration-300">
+            <ThemeToggle />
             <div className="max-w-3xl mx-auto">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -51,21 +54,31 @@ export default function Home() {
                     transition={{ duration: 0.5 }}
                     className="text-center mb-12"
                 >
-                    <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">
+                    <motion.h1 
+                        className="text-4xl font-bold text-gray-900 dark:text-white mb-2"
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.2 }}
+                    >
                         MessageCraft
-                    </h1>
-                    <p className="text-lg text-gray-600 dark:text-gray-300">
+                    </motion.h1>
+                    <motion.p 
+                        className="text-lg text-gray-600 dark:text-gray-300"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.5, delay: 0.4 }}
+                    >
                         AI-Powered Message Composition
-                    </p>
+                    </motion.p>
                 </motion.div>
 
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.2 }}
-                    className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8"
+                    className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 transition-colors duration-300"
                 >
-                    <AnimatePresence>
+                    <AnimatePresence mode="wait">
                         {error && (
                             <motion.div
                                 initial={{ opacity: 0, y: -10 }}
@@ -80,7 +93,11 @@ export default function Home() {
 
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
+                            <motion.div
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.5, delay: 0.3 }}
+                            >
                                 <label htmlFor="recipient" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                     Recipient
                                 </label>
@@ -93,9 +110,13 @@ export default function Home() {
                                     className="input-field"
                                     placeholder="Who is this message for?"
                                 />
-                            </div>
+                            </motion.div>
 
-                            <div>
+                            <motion.div
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.5, delay: 0.4 }}
+                            >
                                 <label htmlFor="tone" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                     Tone
                                 </label>
@@ -111,10 +132,14 @@ export default function Home() {
                                     <option value="friendly">Friendly</option>
                                     <option value="urgent">Urgent</option>
                                 </select>
-                            </div>
+                            </motion.div>
                         </div>
 
-                        <div>
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.5 }}
+                        >
                             <label htmlFor="context" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                 Context/Purpose
                             </label>
@@ -127,9 +152,13 @@ export default function Home() {
                                 className="input-field"
                                 placeholder="What is the purpose of this message?"
                             />
-                        </div>
+                        </motion.div>
 
-                        <div>
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.6 }}
+                        >
                             <label htmlFor="details" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                 Key Details
                             </label>
@@ -140,7 +169,7 @@ export default function Home() {
                                 className="input-field h-32"
                                 placeholder="Add any specific details or requirements..."
                             />
-                        </div>
+                        </motion.div>
 
                         <motion.button
                             whileHover={{ scale: 1.02 }}
@@ -148,28 +177,21 @@ export default function Home() {
                             type="submit"
                             disabled={isLoading}
                             className="w-full submit-button"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.7 }}
                         >
-                            {isLoading ? (
-                                <span className="flex items-center justify-center">
-                                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                    </svg>
-                                    Generating...
-                                </span>
-                            ) : (
-                                "Generate Message"
-                            )}
+                            {isLoading ? <LoadingSpinner /> : "Generate Message"}
                         </motion.button>
                     </form>
 
-                    <AnimatePresence>
+                    <AnimatePresence mode="wait">
                         {message && (
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: 20 }}
-                                className="mt-8 p-6 bg-gray-50 dark:bg-gray-700 rounded-xl"
+                                className="mt-8 p-6 bg-gray-50 dark:bg-gray-700 rounded-xl transition-colors duration-300"
                             >
                                 <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
                                     Generated Message
