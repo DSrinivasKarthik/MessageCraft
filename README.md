@@ -2,7 +2,7 @@
 
 A modern web application that uses AI to generate emails and messages based on user-provided context, tone, and details. Built with Next.js and integrated with the Groq API for powerful language generation.
 
-![Screenshot of MessageCraft](screenshot.png)
+![image](https://github.com/user-attachments/assets/5bdd02a5-c43b-4e1f-bece-0aa13c52e9a5)
 
 ## Table of Contents
 
@@ -52,7 +52,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 1.  Clone the repository:
     ```bash
-    git clone [repository-url]
+    git clone https://github.com/DSrinivasKarthik/MessageCraft.git
     ```
 
 2.  Navigate to the project directory:
