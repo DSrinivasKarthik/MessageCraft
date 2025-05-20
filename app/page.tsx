@@ -2,208 +2,63 @@
 'use client'; // Important for interactive components
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import ThemeToggle from './components/ThemeToggle';
-import LoadingSpinner from './components/LoadingSpinner';
+import { motion } from 'framer-motion';
+import MessageHistory from './components/MessageHistory';
+import MessageTemplates from './components/MessageTemplates';
+import MessageCategories from './components/MessageCategories';
+import MessageForm from './components/MessageForm';
 
 export default function Home() {
-    const [recipient, setRecipient] = useState('');
-    const [context, setContext] = useState('');
-    const [tone, setTone] = useState('formal');
-    const [details, setDetails] = useState('');
-    const [message, setMessage] = useState('');
-    const [error, setError] = useState<string | null>(null);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isDarkMode, setIsDarkMode] = useState(false);
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setError(null);
-        setMessage('');
-        setIsLoading(true);
-
-        try {
-            const response = await fetch('/api/generate', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ recipient, context, tone, details }),
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                setMessage(data.message);
-            } else {
-                setError(data.error || 'An error occurred.');
-            }
-        } catch (err: any) {
-            setError(err.message || 'A network error occurred.');
-        } finally {
-            setIsLoading(false);
-        }
+    const toggleDarkMode = () => {
+        setIsDarkMode(!isDarkMode);
+        document.documentElement.classList.toggle('dark');
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 py-12 px-4 sm:px-6 lg:px-8 transition-colors duration-300">
-            <ThemeToggle />
-            <div className="max-w-3xl mx-auto">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
-                    className="text-center mb-12"
-                >
-                    <motion.h1 
-                        className="text-4xl font-bold text-gray-900 dark:text-white mb-2"
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.2 }}
-                    >
+        <main className={`min-h-screen ${isDarkMode ? 'dark' : ''}`}>
+            <div className="container mx-auto px-4 py-8">
+                <div className="flex justify-between items-center mb-8">
+                    <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
                         MessageCraft
-                    </motion.h1>
-                    <motion.p 
-                        className="text-lg text-gray-600 dark:text-gray-300"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.5, delay: 0.4 }}
+                    </h1>
+                    <button
+                        onClick={toggleDarkMode}
+                        className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                        aria-label="Toggle dark mode"
                     >
-                        AI-Powered Message Composition
-                    </motion.p>
-                </motion.div>
+                        {isDarkMode ? (
+                            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                            </svg>
+                        ) : (
+                            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                            </svg>
+                        )}
+                    </button>
+                </div>
 
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
-                    className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 transition-colors duration-300"
+                    className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-8"
                 >
-                    <AnimatePresence mode="wait">
-                        {error && (
-                            <motion.div
-                                initial={{ opacity: 0, y: -10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -10 }}
-                                className="mb-6 p-4 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-lg"
-                            >
-                                <p className="text-red-600 dark:text-red-400">{error}</p>
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
-
-                    <form onSubmit={handleSubmit} className="space-y-6">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <motion.div
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.5, delay: 0.3 }}
-                            >
-                                <label htmlFor="recipient" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                    Recipient
-                                </label>
-                                <input
-                                    type="text"
-                                    id="recipient"
-                                    value={recipient}
-                                    onChange={(e) => setRecipient(e.target.value)}
-                                    required
-                                    className="input-field"
-                                    placeholder="Who is this message for?"
-                                />
-                            </motion.div>
-
-                            <motion.div
-                                initial={{ opacity: 0, x: 20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.5, delay: 0.4 }}
-                            >
-                                <label htmlFor="tone" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                    Tone
-                                </label>
-                                <select
-                                    id="tone"
-                                    value={tone}
-                                    onChange={(e) => setTone(e.target.value)}
-                                    required
-                                    className="input-field"
-                                >
-                                    <option value="formal">Formal</option>
-                                    <option value="informal">Informal</option>
-                                    <option value="friendly">Friendly</option>
-                                    <option value="urgent">Urgent</option>
-                                </select>
-                            </motion.div>
-                        </div>
-
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.5 }}
-                        >
-                            <label htmlFor="context" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                Context/Purpose
-                            </label>
-                            <input
-                                type="text"
-                                id="context"
-                                value={context}
-                                onChange={(e) => setContext(e.target.value)}
-                                required
-                                className="input-field"
-                                placeholder="What is the purpose of this message?"
-                            />
-                        </motion.div>
-
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.6 }}
-                        >
-                            <label htmlFor="details" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                Key Details
-                            </label>
-                            <textarea
-                                id="details"
-                                value={details}
-                                onChange={(e) => setDetails(e.target.value)}
-                                className="input-field h-32"
-                                placeholder="Add any specific details or requirements..."
-                            />
-                        </motion.div>
-
-                        <motion.button
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
-                            type="submit"
-                            disabled={isLoading}
-                            className="w-full submit-button"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.7 }}
-                        >
-                            {isLoading ? <LoadingSpinner /> : "Generate Message"}
-                        </motion.button>
-                    </form>
-
-                    <AnimatePresence mode="wait">
-                        {message && (
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: 20 }}
-                                className="mt-8 p-6 bg-gray-50 dark:bg-gray-700 rounded-xl transition-colors duration-300"
-                            >
-                                <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-                                    Generated Message
-                                </h2>
-                                <div className="prose dark:prose-invert max-w-none">
-                                    <p className="whitespace-pre-wrap">{message}</p>
-                                </div>
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
+                    <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
+                        Welcome to MessageCraft
+                    </h2>
+                    <p className="text-gray-600 dark:text-gray-300">
+                        Your AI-powered message writing assistant. Use the floating buttons at the bottom right to manage your messages, templates, and categories.
+                    </p>
                 </motion.div>
+
+                <MessageForm />
             </div>
-        </div>
+
+            <MessageHistory />
+            <MessageTemplates />
+            <MessageCategories />
+        </main>
     );
 }
