@@ -12,7 +12,7 @@
     "framer-motion": "^11.0.3",
     "groq-sdk": "^0.9.1",
     "messagecraft": "file:",
-    "next": "15.1.2",
+    "next": "15.2.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "@tailwindcss/typography": "^0.5.10"
