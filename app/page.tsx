@@ -37,8 +37,12 @@ export default function Home() {
             } else {
                 setError(data.error || 'An error occurred.');
             }
-        } catch (err: any) {
-            setError(err.message || 'A network error occurred.');
+        } catch (err: unknown) {
+            let errorMessage = 'A network error occurred.';
+            if (typeof err === 'object' && err !== null && 'message' in err && typeof (err as any).message === 'string') {
+                errorMessage = (err as { message: string }).message;
+            }
+            setError(errorMessage);
         } finally {
             setIsLoading(false);
         }

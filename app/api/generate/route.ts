@@ -43,8 +43,12 @@ export async function POST(request: Request) {
         const message = data.choices[0].message.content.trim();
 
         return NextResponse.json({ message });
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error("Error with Groq API:", error);
-        return NextResponse.json({ error: error.message }, { status: 500 });
+        let errorMessage = "An unknown error occurred.";
+        if (typeof error === "object" && error !== null && "message" in error && typeof (error as any).message === "string") {
+            errorMessage = (error as { message: string }).message;
+        }
+        return NextResponse.json({ error: errorMessage }, { status: 500 });
     }
 }
