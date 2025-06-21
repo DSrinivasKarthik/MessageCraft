@@ -6,6 +6,15 @@ import { motion, AnimatePresence } from 'framer-motion';
 import ThemeToggle from './components/ThemeToggle';
 import LoadingSpinner from './components/LoadingSpinner';
 
+function isErrorWithMessage(error: unknown): error is { message: string } {
+    return (
+        typeof error === 'object' &&
+        error !== null &&
+        'message' in error &&
+        typeof (error as { message: unknown }).message === 'string'
+    );
+}
+
 export default function Home() {
     const [recipient, setRecipient] = useState('');
     const [context, setContext] = useState('');
@@ -39,8 +48,8 @@ export default function Home() {
             }
         } catch (err: unknown) {
             let errorMessage = 'A network error occurred.';
-            if (typeof err === 'object' && err !== null && 'message' in err && typeof (err as any).message === 'string') {
-                errorMessage = (err as { message: string }).message;
+            if (isErrorWithMessage(err)) {
+                errorMessage = err.message;
             }
             setError(errorMessage);
         } finally {
