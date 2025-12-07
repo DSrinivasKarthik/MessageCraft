@@ -1,5 +1,14 @@
 import { NextResponse } from 'next/server';
 
+function isErrorWithMessage(error: unknown): error is { message: string } {
+    return (
+        typeof error === 'object' &&
+        error !== null &&
+        'message' in error &&
+        typeof (error as { message: unknown }).message === 'string'
+    );
+}
+
 export async function POST(request: Request) {
     try {
         const { recipient, context, tone, details } = await request.json();
@@ -43,8 +52,12 @@ export async function POST(request: Request) {
         const message = data.choices[0].message.content.trim();
 
         return NextResponse.json({ message });
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error("Error with Groq API:", error);
-        return NextResponse.json({ error: error.message }, { status: 500 });
+        let errorMessage = "An unknown error occurred.";
+        if (isErrorWithMessage(error)) {
+            errorMessage = error.message;
+        }
+        return NextResponse.json({ error: errorMessage }, { status: 500 });
     }
 }
