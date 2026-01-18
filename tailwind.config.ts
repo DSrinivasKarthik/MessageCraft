@@ -10,26 +10,31 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        border: 'var(--border)',
-        ring: 'var(--ring)',
-        background: 'var(--background)',
-        foreground: 'var(--foreground)',
+        border: 'hsl(var(--border))',
+        ring: 'hsl(var(--ring))',
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
         primary: {
-          DEFAULT: 'var(--primary)',
-          hover: 'var(--primary-hover)',
+          DEFAULT: '#6366f1',
+          hover: '#4f46e5',
+          light: '#818cf8',
+        },
+        accent: {
+          DEFAULT: '#ec4899',
+          hover: '#db2777',
         },
         muted: {
-          DEFAULT: 'var(--muted)',
+          DEFAULT: '#64748b',
         },
         danger: {
-          DEFAULT: 'var(--danger)',
+          DEFAULT: '#ef4444',
         },
         success: {
-          DEFAULT: 'var(--success)',
+          DEFAULT: '#10b981',
         },
       },
       borderRadius: {
-        DEFAULT: 'var(--radius)',
+        DEFAULT: '1rem',
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],

@@ -9,13 +9,13 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@tailwindcss/typography": "^0.5.10",
     "framer-motion": "^11.0.3",
     "groq-sdk": "^0.9.1",
     "messagecraft": "file:",
     "next": "16.0.10",
     "react": "19.2.1",
-    "react-dom": "19.2.1",
-    "@tailwindcss/typography": "^0.5.10"
+    "react-dom": "19.2.1"
   },
   "devDependencies": {
     "@types/node": "^20",
